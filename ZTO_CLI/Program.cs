@@ -7,12 +7,13 @@
         /// </summary>
         public static readonly List<string> menu = new()
         {
-            "[c].  Dodać użytkownika.",
-            "[r].  Wyświetlić wszystkich użytkowników.",
-            "[u].  Zktualizować dane użytkownika.",
-            "[d].  Usunąć użytkownika.",
-            "[s].  Wybać użytkownika i przypisać suchara.",
-            "[e].  Zakończ"
+            "[c].   Dodać użytkownika.",
+            "[r].   Wyświetlić wszystkich użytkowników.",
+            "[rs].  Wyświetlić wszystkich użytkowników z informacjami o sucharach.",
+            "[u].   Zktualizować dane użytkownika.",
+            "[d].   Usunąć użytkownika.",
+            "[s].   Wybać użytkownika i przypisać suchara.",
+            "[e].   Zakończ"
         };
 
         /// <summary>
@@ -67,8 +68,20 @@
                             Console.WriteLine(" Enabled: " + item.Enabled);
                             Console.WriteLine("-------------------------------------------------------");
                         }
+                        Console.WriteLine("Naciśnij ENTER");
+                        Console.ReadLine();
+                        Start();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Brak danych");
+                        Thread.Sleep(1500);
+                        Start();
+                    }
+                    break;
+                case "rs":
 
-                        if (Person.ReadJoin()!=null)
+                        if (Person.ReadJoin() != null)
                         {
                             Console.WriteLine("-------------------------------------------------------");
                             Console.WriteLine("RELACJA UŻYTKOWNIKA I SUCHARA");
@@ -79,9 +92,6 @@
                                 Console.WriteLine(item);
                                 Console.WriteLine("-------------------------------------------------------");
                             }
-
-                        }
-
                         Console.WriteLine("Naciśnij ENTER");
                         Console.ReadLine();
                         Start();

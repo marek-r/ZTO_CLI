@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ZTO_CLI
 {
@@ -6,6 +7,15 @@ namespace ZTO_CLI
     /// <summary>
     /// Klasa Person odpowiadająca tabeli Person oraz właściwości automatyczne kolumnom.
     /// </summary>
+    /// <example>
+    /// CREATE TABLE Persons (
+    ///    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ///    username TEXT    NOT NULL
+    ///                     UNIQUE,
+    ///    password TEXT    NOT NULL,
+    ///    enabled  TEXT NOT NULL
+    //);
+    /// </example>
     public class Person
     {
         [Key]
@@ -13,7 +23,6 @@ namespace ZTO_CLI
         public string? Username { get; set; }
         public string? Password { get; set; }
         public int? Enabled { get; set; }
-
 
         /// <summary>
         /// Konstruktor

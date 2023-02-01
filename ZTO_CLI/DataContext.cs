@@ -9,9 +9,25 @@ namespace ZTO_CLI
 {
     /// <summary>
     /// Kontekst bazy danych.
+    /// Suchary usuwane są z poziomu bazy podczas usuwania użytkownika: 
+    /// PersonId REFERENCES Persons(Id) ON DELETE CASCADE 
     /// </summary>
+    /// <example>
+    /// CREATE TABLE Suchary (
+    ///    SucharId INTEGER PRIMARY KEY AUTOINCREMENT,
+    ///    PersonId REFERENCES Persons(Id) ON DELETE CASCADE,
+    ///    categories TEXT,
+    ///    created_at TEXT,
+    ///    icon_url,
+    ///    id TEXT,
+    ///    updated_at TEXT,
+    ///    url TEXT,
+    ///    value      TEXT
+    //);
+    /// </example>
     public class DataContext : DbContext
     {
+
         /// <summary>
         /// Ścieżka do pliku db.
         /// </summary>
