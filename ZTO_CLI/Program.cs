@@ -28,6 +28,7 @@
         static void Main(string[] args)
         {
             Console.Title = "ZTO | Marek";
+            Helper.FolderBazy();
             Start();
         }
 
@@ -42,14 +43,26 @@
             {
                 Console.WriteLine(item);
             }
+
             switch (Console.ReadLine())
             {
                 case "c":
                     Console.WriteLine("Wpisz nazwę użytkownika:");
                     var username = Console.ReadLine();
-                    Console.WriteLine("Wpisz hasło:");
-                    var password = Console.ReadLine();
-                    Person person = new(username, password, 1);
+                    do
+                    {
+                        Console.WriteLine("Wpisz hasło:");
+                        Helper.Password = Console.ReadLine();
+                        if (Helper.Password.Length > 4)
+                        {
+                            break;
+                        }
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Wpisz hasło minimum cztery znaki:");
+                        Console.ResetColor();
+                    } while (true);
+                    Krypto krypto = new();
+                    Person person = new(username, krypto.GenerujMD5(Helper.Password), 1);
                     Console.WriteLine(Person.Create(person));
                     Thread.Sleep(2000);
                     Start();
@@ -81,17 +94,17 @@
                     break;
                 case "rs":
 
-                        if (Person.ReadJoin() != null)
+                    if (Person.ReadJoin() != null)
+                    {
+                        Console.WriteLine("-------------------------------------------------------");
+                        Console.WriteLine("RELACJA UŻYTKOWNIKA I SUCHARA");
+                        Console.WriteLine("-------------------------------------------------------");
+                        foreach (object item in Person.ReadJoin())
                         {
                             Console.WriteLine("-------------------------------------------------------");
-                            Console.WriteLine("RELACJA UŻYTKOWNIKA I SUCHARA");
+                            Console.WriteLine(item);
                             Console.WriteLine("-------------------------------------------------------");
-                            foreach (object item in Person.ReadJoin())
-                            {
-                                Console.WriteLine("-------------------------------------------------------");
-                                Console.WriteLine(item);
-                                Console.WriteLine("-------------------------------------------------------");
-                            }
+                        }
                         Console.WriteLine("Naciśnij ENTER");
                         Console.ReadLine();
                         Start();
@@ -162,12 +175,7 @@
                             Start();
                             break;
                         case 1:
-                            //Task<Suchar> taskAktualizujSuchar = Helper.PobierzSuchara();
-                            //taskAktualizujSuchar.Wait();
-                            //Suchar nowySucharDoPodmiany = taskAktualizujSuchar.Result;
-                            //nowySucharDoPodmiany.PersonId = Helper.id;
                             Suchar.Update(Helper.id);
-                            //Console.WriteLine(Suchar.Update(Helper.id));
                             Thread.Sleep(2000);
                             Start();
                             break;

@@ -29,12 +29,21 @@ namespace ZTO_CLI
     {
 
         /// <summary>
-        /// Ścieżka do pliku db.
+        /// Konfiguracja ścieżki do pliku db.
         /// </summary>
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source = C:\\Users\\Marek\\source\\repos\\ZTO_CLI\\ZTO_CLI\\Baza.db");
+            try
+            {
+                optionsBuilder.UseSqlite("Data Source = " + Helper.PlikBazy);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
         }
 
         /// <summary>
@@ -46,5 +55,6 @@ namespace ZTO_CLI
         /// Właściwość Suchary odpowiadająca tabeli Suchary
         /// </summary>
         public DbSet<Suchar> Suchary { get; set; }
+
     }
 }

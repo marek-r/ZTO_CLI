@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System.Text.Json;
 
 namespace ZTO_CLI
 {
@@ -28,6 +29,16 @@ namespace ZTO_CLI
         /// Deklarowany ststus użytkownika.
         /// </summary>
         public static string? Status { get; set; }
+
+        /// <summary>
+        /// Właściwość auto. Hasło do zahaszowania
+        /// </summary>
+        public static string Password { get; set; }
+
+        /// <summary>
+        /// Właściwość auto. Ścieżka do pliku bazy.
+        /// </summary>
+        public static string? PlikBazy { get; set; }
 
         /// <summary>
         /// Właściwość auto. relacja użytkownik-suchar
@@ -63,6 +74,26 @@ namespace ZTO_CLI
                 Thread.Sleep(5000);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Tworzy katalog roboczy dla pliku bazy danych, który trzeba tam umieścić przed uruchomienim programu.
+        /// </summary>
+        public static void FolderBazy()
+        {
+            try
+            {
+                var bazaPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                var folderBazy = System.IO.Path.GetDirectoryName(bazaPath);
+                folderBazy += "\\_Baza";
+                PlikBazy = Path.Combine(folderBazy, "Baza.db");
+                DirectoryInfo di = Directory.CreateDirectory(folderBazy);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
     }
 }
