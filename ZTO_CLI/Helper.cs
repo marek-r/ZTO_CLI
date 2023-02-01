@@ -33,7 +33,7 @@ namespace ZTO_CLI
         /// <summary>
         /// Właściwość auto. Hasło do zahaszowania
         /// </summary>
-        public static string Password { get; set; }
+        public static string? Password { get; set; }
 
         /// <summary>
         /// Właściwość auto. Ścieżka do pliku bazy.
@@ -41,9 +41,19 @@ namespace ZTO_CLI
         public static string? PlikBazy { get; set; }
 
         /// <summary>
+        /// Scieżka do katalogu roboczego aplikacji
+        /// </summary>
+        public static string? BazaPath { get; set; }
+
+        /// <summary>
+        /// Nazwa folderu w którym znajduje się baza.
+        /// </summary>
+        public static string? FolderDb { get; set; }
+
+        /// <summary>
         /// Właściwość auto. relacja użytkownik-suchar
         /// </summary>
-        public static dynamic userSuchar { get; set; }
+        public static dynamic? UserSuchar { get; set; }
 
         /// <summary>
         /// Pole klient Http
@@ -83,11 +93,11 @@ namespace ZTO_CLI
         {
             try
             {
-                var bazaPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                var folderBazy = System.IO.Path.GetDirectoryName(bazaPath);
-                folderBazy += "\\_Baza";
-                PlikBazy = Path.Combine(folderBazy, "Baza.db");
-                DirectoryInfo di = Directory.CreateDirectory(folderBazy);
+                BazaPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                FolderDb = System.IO.Path.GetDirectoryName(BazaPath);
+                FolderDb += "\\_Baza";
+                PlikBazy = Path.Combine(FolderDb, "Baza.db");
+                DirectoryInfo di = Directory.CreateDirectory(FolderDb);
             }
             catch (Exception)
             {

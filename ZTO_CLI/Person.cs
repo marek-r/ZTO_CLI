@@ -115,7 +115,8 @@ namespace ZTO_CLI
                         string password = Console.ReadLine();
                         if (password != "")
                         {
-                            person.Password = password;
+                            Krypto krypto = new();
+                            person.Password = krypto.GenerujMD5(password);
                         }
                         else
                         {
@@ -246,25 +247,25 @@ namespace ZTO_CLI
         {
             try
             {
-                Console.WriteLine("Czekaj...");
                 using (DataContext context = new DataContext())
 
                 {
-                    return Helper.userSuchar = (from pe in context.Persons
+                    return Helper.UserSuchar = (from pe in context.Persons
                                                 join su in context.Suchary on pe.Id equals su.PersonId
                                                 where pe.Id == su.PersonId
                                                 select new
                                                 {
-                                                    personId = pe.Id,
-                                                    personUsername = pe.Username,
-                                                    personPassword = pe.Password,
-                                                    personEnabled = pe.Enabled,
-                                                    sucharId = su.id,
-                                                    sucharPersonid = su.PersonId,
-                                                    sucharCreatedAt = su.created_at,
-                                                    sucharIconUrl = su.icon_url,
-                                                    sucharValue = su.value
+                                                    pe.Id,
+                                                    pe.Username,
+                                                    pe.Password,
+                                                    pe.Enabled,
+                                                    su.PersonId,
+                                                    su.updated_at,
+                                                    su.created_at,
+                                                    su.icon_url,
+                                                    su.value
                                                 }).ToList();
+
                 }
             }
             catch (Exception)

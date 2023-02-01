@@ -17,6 +17,11 @@
         };
 
         /// <summary>
+        /// Pozycja kursora.
+        /// </summary>
+        public static (int l, int t) Pk { get; set; }
+
+        /// <summary>
         /// Lista użytkowników
         /// </summary>
         public static List<Person>? Persons { get; private set; }
@@ -74,13 +79,18 @@
                     {
                         foreach (var item in Persons)
                         {
-                            Console.WriteLine("-------------------------------------------------------");
+                            Pk = Console.GetCursorPosition();
+                            Console.SetCursorPosition(Pk.l, Pk.t);
+                            for (int i = 0; i < Console.WindowWidth; i++)
+                            {
+                                Console.Write("-");
+                            }
                             Console.Write("Id: " + item.Id);
                             Console.Write(" Username: " + item.Username);
                             Console.Write(" Password: " + item.Password);
                             Console.WriteLine(" Enabled: " + item.Enabled);
-                            Console.WriteLine("-------------------------------------------------------");
                         }
+                        Console.WriteLine(Environment.NewLine);
                         Console.WriteLine("Naciśnij ENTER");
                         Console.ReadLine();
                         Start();
@@ -96,15 +106,32 @@
 
                     if (Person.ReadJoin() != null)
                     {
-                        Console.WriteLine("-------------------------------------------------------");
-                        Console.WriteLine("RELACJA UŻYTKOWNIKA I SUCHARA");
-                        Console.WriteLine("-------------------------------------------------------");
-                        foreach (object item in Person.ReadJoin())
+                        Pk = Console.GetCursorPosition();
+                        Console.SetCursorPosition(Pk.l, Pk.t);
+
+                        for (int i = 0; i < Console.WindowWidth; i++)
                         {
-                            Console.WriteLine("-------------------------------------------------------");
-                            Console.WriteLine(item);
-                            Console.WriteLine("-------------------------------------------------------");
+                            Console.Write("-");
                         }
+                        Console.WriteLine("RELACJA UŻYTKOWNIKA I SUCHARA");
+                        foreach (var item in Person.ReadJoin())
+                        {
+                            Pk = Console.GetCursorPosition();
+                            Console.SetCursorPosition(Pk.l, Pk.t);
+                            for (int i = 0; i < Console.WindowWidth; i++)
+                            {
+                                Console.Write("-");
+                            }
+                            Console.WriteLine("Id: " + item.PersonId);
+                            Console.WriteLine("User: " + item.Username);
+                            Console.WriteLine("Enabled: " + item.Enabled);
+                            Console.WriteLine("SucharId: " + item.Id);
+                            Console.WriteLine("CreatedAt: " + item.created_at);
+                            Console.WriteLine("UpdatedAt: " + item.updated_at);
+                            Console.WriteLine("IconUrl: " + item.icon_url);
+                            Console.WriteLine("Value: " + item.value);
+                        }
+                        Console.WriteLine(Environment.NewLine);
                         Console.WriteLine("Naciśnij ENTER");
                         Console.ReadLine();
                         Start();

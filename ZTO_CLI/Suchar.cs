@@ -3,34 +3,34 @@
 namespace ZTO_CLI
 {
     /// <summary>
-    /// Klasa Suchar odpowiadająca tabeli oraz właściwości automatyczne.
+    /// Klasa Suchar odpowiadająca tabeli Suchary.
     /// </summary>
     /// <example>
     /// Przykład odpowiedzi z API.
     /// {
-    //   "categories":[      
-    //   ],
-    //   "created_at":"2020-01-05 13:42:29.569033",
-    //   "icon_url":"https://assets.chucknorris.host/img/avatar/chuck-norris.png",
-    //   "id":"qJ9lipf0RFeWLTNGNbwCBg",
-    //   "updated_at":"2020-01-05 13:42:29.569033",
-    //   "url":"https://api.chucknorris.io/jokes/qJ9lipf0RFeWLTNGNbwCBg",
-    //   "value":"The jokes are slacking, pick up the paste guys, or Chuck Norris will Virtually Roundhouse your asses!!"
-    //}
+    ///   "categories":[      
+    ///   ],
+    ///   "created_at":"2020-01-05 13:42:29.569033",
+    ///   "icon_url":"https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+    ///   "id":"qJ9lipf0RFeWLTNGNbwCBg",
+    ///   "updated_at":"2020-01-05 13:42:29.569033",
+    ///   "url":"https://api.chucknorris.io/jokes/qJ9lipf0RFeWLTNGNbwCBg",
+    ///   "value":"The jokes are slacking, pick up the paste guys, or Chuck Norris will Virtually Roundhouse your asses!!"
+    ///}
     /// </example>
     public class Suchar
     {
         /// <summary>
         /// Konstruktor.
-        /// Parametry zgodnie z API
+        /// Parametry zgodnie z API (z pobranych danych JSON)
         /// </summary>
-        /// <param name="personId"></param>
-        /// <param name="created_at"></param>
-        /// <param name="icon_url"></param>
-        /// <param name="id"></param>
-        /// <param name="updated_at"></param>
-        /// <param name="url"></param>
-        /// <param name="value"></param>
+        /// <param name="personId">Id użytkownika</param>
+        /// <param name="created_at">z API utworzono</param>
+        /// <param name="icon_url">z API url ikony</param>
+        /// <param name="id">z API id suchara</param>
+        /// <param name="updated_at">z API zaktualizowano</param>
+        /// <param name="url">z API url</param>
+        /// <param name="value">z API treść suchara</param>
         public Suchar(int personId, string created_at, string icon_url, string id, string updated_at, string url, string value)
         {
             PersonId = personId;
@@ -45,7 +45,6 @@ namespace ZTO_CLI
         [Key]
         public int SucharId { get; set; }
         public int PersonId { get; set; }
-
         //public List<object> categories { get; set; }
         public string created_at { get; set; }
         public string icon_url { get; set; }
@@ -106,7 +105,7 @@ namespace ZTO_CLI
                         suchar.icon_url = nowySuchar.icon_url;
                         suchar.id = nowySuchar.id;
                         suchar.updated_at = nowySuchar.updated_at;
-                        suchar.url = nowySuchar.url;
+                        suchar.id = nowySuchar.id;
                         suchar.value = nowySuchar.value;
                         Console.WriteLine("Zaktualizowano suchara.");
                         context.SaveChanges();
