@@ -1,13 +1,6 @@
 # ZTO_CLI
-![obraz](https://user-images.githubusercontent.com/25710314/216007361-e534f618-0e00-4b15-83d1-9e5b0aa453d4.png)
-
-![obraz](https://user-images.githubusercontent.com/25710314/216007428-3b6c6e9b-61ea-4699-9975-17e6bc129ce4.png)
-
-![obraz](https://user-images.githubusercontent.com/25710314/216007530-bf8e112c-c1ba-4b31-b11e-228a3afe9542.png)
-
-![obraz](https://user-images.githubusercontent.com/25710314/216008157-c4bdde47-9f4e-4271-bac2-fc48f80def26.png)
-
-![obraz](https://user-images.githubusercontent.com/25710314/216008507-325db5cf-89a0-4f5c-a16b-6fd468b5e326.png)
-
-![obraz](https://user-images.githubusercontent.com/25710314/216008581-abdf175c-f1ce-4eda-96f5-d43422525927.png)
-
+![obraz](https://user-images.githubusercontent.com/25710314/216133567-b7bdcb41-eec0-455f-ad7f-6f40bd1869c5.png)
+![obraz](https://user-images.githubusercontent.com/25710314/216133715-2b8a62ff-29f6-4be5-b638-44d2f627d86f.png)
+![obraz](https://user-images.githubusercontent.com/25710314/216133807-19385819-57fc-4dbb-80c3-ff1572dbba1f.png)
+![obraz](https://user-images.githubusercontent.com/25710314/216133875-b86ba790-52f9-4c30-8d62-4265946fdc5a.png)
+![obraz](https://user-images.githubusercontent.com/25710314/216133985-a3443d35-91ea-4424-a0dc-22b532a0c99f.png)
