@@ -1,12 +1,4 @@
-﻿using System.ComponentModel;
-using System.Net;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace ZTO_CLI
+﻿namespace ZTO_CLI
 {
     internal class Program
     {
@@ -19,9 +11,9 @@ namespace ZTO_CLI
             "[r].  Wyświetlić wszystkich użytkowników.",
             "[u].  Zktualizować dane użytkownika.",
             "[d].  Usunąć użytkownika.",
-            //"[s].  S.",
+            "[s].  Wybać użytkownika i przypisać suchara.",
             "[e].  Zakończ"
-        };       
+        };
 
         /// <summary>
         /// Lista użytkowników
@@ -75,6 +67,21 @@ namespace ZTO_CLI
                             Console.WriteLine(" Enabled: " + item.Enabled);
                             Console.WriteLine("-------------------------------------------------------");
                         }
+
+                        if (Person.ReadJoin()!=null)
+                        {
+                            Console.WriteLine("-------------------------------------------------------");
+                            Console.WriteLine("RELACJA UŻYTKOWNIKA I SUCHARA");
+                            Console.WriteLine("-------------------------------------------------------");
+                            foreach (object item in Person.ReadJoin())
+                            {
+                                Console.WriteLine("-------------------------------------------------------");
+                                Console.WriteLine(item);
+                                Console.WriteLine("-------------------------------------------------------");
+                            }
+
+                        }
+
                         Console.WriteLine("Naciśnij ENTER");
                         Console.ReadLine();
                         Start();
@@ -86,20 +93,20 @@ namespace ZTO_CLI
                         Start();
                     }
                     break;
-                case "u":                    
+                case "u":
                     do
-                    {                       
+                    {
                         Console.WriteLine("Wpisz id użytkownika:");
                         Helper.Index = Console.ReadLine();
                         if (int.TryParse(Helper.Index, out Helper.id))
-                        {                            
+                        {
                             break;
                         }
                         Console.WriteLine(Environment.NewLine);
-                        Console.ForegroundColor= ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Wpisz cyfrę lub liczbę.");
                         Console.ResetColor();
-                    } while (true);                    
+                    } while (true);
                     Person.Update(Helper.id);
                     Thread.Sleep(2000);
                     Start();
@@ -123,9 +130,52 @@ namespace ZTO_CLI
                     Start();
                     break;
                 case "s":
-                    //Task task = Get();
-                    //task.Wait();
+                    do
+                    {
+                        Console.WriteLine("Wpisz id użytkownika któremu chcesz przypisać suchara:");
+                        Helper.Index = Console.ReadLine();
+                        if (int.TryParse(Helper.Index, out Helper.id))
+                        {
+                            break;
+                        }
+                        Console.WriteLine(Environment.NewLine);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Wpisz cyfrę lub liczbę.");
+                        Console.ResetColor();
+                    } while (true);
 
+                    switch (Person.CheckPerson(Helper.id))
+                    {
+                        case 0:
+                            Console.WriteLine("Brak danych");
+                            Thread.Sleep(1500);
+                            Start();
+                            break;
+                        case 1:
+                            //Task<Suchar> taskAktualizujSuchar = Helper.PobierzSuchara();
+                            //taskAktualizujSuchar.Wait();
+                            //Suchar nowySucharDoPodmiany = taskAktualizujSuchar.Result;
+                            //nowySucharDoPodmiany.PersonId = Helper.id;
+                            Suchar.Update(Helper.id);
+                            //Console.WriteLine(Suchar.Update(Helper.id));
+                            Thread.Sleep(2000);
+                            Start();
+                            break;
+                        case 2:
+                            Task<Suchar> taskSuchar = Helper.PobierzSuchara();
+                            taskSuchar.Wait();
+                            Suchar nowySuchar = taskSuchar.Result;
+                            nowySuchar.PersonId = Helper.id;
+                            Console.WriteLine(Suchar.Create(nowySuchar));
+                            Thread.Sleep(2000);
+                            Start();
+                            break;
+                        default:
+                            Console.WriteLine("Błąd podczas weryfikacji czy użytkownik ma przypisanego suchara.");
+                            Thread.Sleep(1500);
+                            Start();
+                            break;
+                    }
                     break;
                 case "e":
                     Console.Clear();
@@ -140,7 +190,6 @@ namespace ZTO_CLI
                     break;
             }
         }
-
 
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
 namespace ZTO_CLI
 {
@@ -32,5 +28,41 @@ namespace ZTO_CLI
         /// Deklarowany ststus użytkownika.
         /// </summary>
         public static string? Status { get; set; }
+
+        /// <summary>
+        /// Właściwość auto. relacja użytkownik-suchar
+        /// </summary>
+        public static dynamic userSuchar { get; set; }
+
+        /// <summary>
+        /// Pole klient Http
+        /// </summary>
+        public static readonly HttpClient client = new HttpClient();
+
+        /// <summary>
+        /// Zadanie pobierania sucharów.
+        /// </summary>
+        /// <returns>Obiekt klasy suchar</returns>
+        public static async Task<Suchar?> PobierzSuchara()
+        {
+            try
+            {
+                using HttpResponseMessage response = await client.GetAsync("https://api.chucknorris.io/jokes/random");
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+                Suchar suchar = JsonSerializer.Deserialize<Suchar>(responseBody);
+
+                return suchar;
+
+            }
+            catch (HttpRequestException error)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(error.Message.ToString());
+                Console.ResetColor();
+                Thread.Sleep(5000);
+                throw;
+            }
+        }
     }
 }

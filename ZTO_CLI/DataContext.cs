@@ -22,8 +22,13 @@ namespace ZTO_CLI
         }
 
         /// <summary>
-        /// Klasa Persons odpowiadająca tabeli Persons
+        /// Właściwość Persons odpowiadająca tabeli Persons
         /// </summary>
         public DbSet<Person> Persons { get; set; }
+
+        /// <summary>
+        /// Właściwość Suchary odpowiadająca tabeli Suchary
+        /// </summary>
+        public DbSet<Suchar> Suchary { get; set; }
     }
 }

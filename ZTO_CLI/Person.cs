@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ZTO_CLI
 {
@@ -16,11 +8,12 @@ namespace ZTO_CLI
     /// </summary>
     public class Person
     {
-        [Key]        
+        [Key]
         public int Id { get; set; }
         public string? Username { get; set; }
         public string? Password { get; set; }
         public int? Enabled { get; set; }
+
 
         /// <summary>
         /// Konstruktor
@@ -118,7 +111,7 @@ namespace ZTO_CLI
                         else
                         {
                             Console.WriteLine("Hasło pozostanie nie zmienione.");
-                        }                        
+                        }
                         do
                         {
                             Console.WriteLine("Status:");
@@ -137,7 +130,7 @@ namespace ZTO_CLI
 
                     }
                     else
-                    {                        
+                    {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Brak danych.");
                         Console.ResetColor();
@@ -151,7 +144,6 @@ namespace ZTO_CLI
                     Console.ResetColor();
                     Thread.Sleep(5000);
                 }
-
             }
 
         }
@@ -196,7 +188,82 @@ namespace ZTO_CLI
 
         }
 
+        /// <summary>
+        /// Sprawdza czy użytkownik o podanym id istnieje oraz czy ma przypisanego suchara.
+        /// </summary>
+        /// <param name="id">Id użytkownika</param>
+        /// <returns>0-brak użytkownika;1-użytkownik ma suchara (aktualizacja);2-użytkownik nie ma suchara (dodanie)</returns>
+        public static int CheckPerson(int id)
+        {
+            using (DataContext context = new DataContext())
+                try
+                {
+                    Console.WriteLine("Czekaj...");
+                    Person person = context.Persons.Find(id);
 
+                    if (person != null)
+                    {
+                        if (context.Suchary.Where(p => p.PersonId == person.Id)
+                                            .FirstOrDefault() != null)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            return 2;
+                        }
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                catch (Exception error)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(error.Message.ToString());
+                    Console.ResetColor();
+                    Thread.Sleep(5000);
+                    return 0;
+                }
+
+
+        }
+
+        /// <summary>
+        /// Relacja użytkownika do suchara
+        /// </summary>
+        public static dynamic ReadJoin()
+        {
+            try
+            {
+                Console.WriteLine("Czekaj...");
+                using (DataContext context = new DataContext())
+
+                {
+                    return Helper.userSuchar = (from pe in context.Persons
+                                                join su in context.Suchary on pe.Id equals su.PersonId
+                                                where pe.Id == su.PersonId
+                                                select new
+                                                {
+                                                    personId = pe.Id,
+                                                    personUsername = pe.Username,
+                                                    personPassword = pe.Password,
+                                                    personEnabled = pe.Enabled,
+                                                    sucharId = su.id,
+                                                    sucharPersonid = su.PersonId,
+                                                    sucharCreatedAt = su.created_at,
+                                                    sucharIconUrl = su.icon_url,
+                                                    sucharValue = su.value
+                                                }).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
 
     }
 }
