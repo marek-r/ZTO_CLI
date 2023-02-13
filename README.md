@@ -1,4 +1,5 @@
 # ZTO_CLI
+Zaliczenie.
 ![obraz](https://user-images.githubusercontent.com/25710314/216133567-b7bdcb41-eec0-455f-ad7f-6f40bd1869c5.png)
 ![obraz](https://user-images.githubusercontent.com/25710314/216133715-2b8a62ff-29f6-4be5-b638-44d2f627d86f.png)
 ![obraz](https://user-images.githubusercontent.com/25710314/216133807-19385819-57fc-4dbb-80c3-ff1572dbba1f.png)
